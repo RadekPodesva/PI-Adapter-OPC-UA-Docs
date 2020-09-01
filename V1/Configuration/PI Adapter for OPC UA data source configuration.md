@@ -55,9 +55,9 @@ The following parameters are available for configuring an OPC UA data source:
 | **RootNodeIds** | Optional | `string` | List of comma-separated NodeIds of those objects from which the adapter browses the OPC UA server address space. This option allows to select only subsets of the OPC UA address by explicitly listing one or more NodeIds which are used to start the initial browse.<br><br>Examples:<br>`"ns=5;s=85/0:Simulation"`<br>`"ns=3;s=DataItems"`<br><br>If not specified, it means that the whole address space will be browsed. <br><br>Allowed value: comma-separated collection of node Ids<br> Default value: `null`|
 | **IncomingTimestamp** | Optional | `string` | Specifies whether the incoming timestamp is taken from the source, from the OPC UA server, or should be created by the adapter instance. <br> **Source** - Default and recommended setting. The timestamp is taken from the source timestamp field. The source is what provides data for the item to the OPC UA server, such as a field device.<br> **Server** - In case the OPC UA item has an invalid source timestamp field, the Server timestamp can be used.<br> **Adapter** - The adapter generates a timestamp for the item upon receiving it from the OPC UA server. <br><br>Allowed value: `Source`, `Server`, or `Adapter` <br> Default value: `Source`|
 | **StreamIdPrefix** | Optional | `string` | Specifies what prefix is used for Stream IDs. The naming convention is StreamIdPrefix.StreamId. An empty string means no prefix will be added to the Stream IDs and names. Null value defaults to ComponentID followed by a dot, for example, *OpcUa1*.NamespaceIndex.Identifier.<br><br>**Note:** Every time you change the StreamIdPrefix of a configured adapter, for example when you delete and add a data source, you need to restart the adapter for the changes to take place. New streams are created on adapter restart and pre-existing streams are no longer updated. <br><br>Allowed value: any string <br> Default value: `null`|
-| **DefaultStreamIdPattern** | Optional | `string` | Specifies the default stream Id pattern to use. Possible parameters: {NamespaceIndex}<sup>1</sup>, {Identifier}, {Name}. <br><br>Allowed value: any string<br>Default value: `{NamespaceIndex.Identifier}` |
+| **DefaultStreamIdPattern** | Optional | `string` | Specifies the default stream Id pattern to use. Possible parameters: {NamespaceIndex}<sup>1</sup>, {Identifier}, {Name}. <br><br>Allowed value: any string<br>Default value: `{NamespaceIndex}.{Identifier}` |
 
-<sup>1</sup> NamespaceIndex refers to the number specified in the `ns` keyword in the **RootNodeIds** parameter.
+<sup>1</sup> refers to the number specified in the `ns` keyword in the **RootNodeIds** parameter.
 
 ## OPC UA data source examples
 
@@ -82,7 +82,7 @@ The following are examples of valid OPC UA data source configurations:
     "RootNodeIds": null,
     "IncomingTimestamp": "Source",
     "StreamIdPrefix": null,
-    "DefaultStreamIdPattern": "{NamespaceIndex.Identifier}"
+    "DefaultStreamIdPattern": "{NamespaceIndex}.{Identifier}"
 }
 ```
 
